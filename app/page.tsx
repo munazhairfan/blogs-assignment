@@ -70,7 +70,8 @@ export default async function Home() {
           <div className="grid md:grid-cols-3 grid-cols-1 gap-10">
           {blogs.map((blog) => {
             return (
-              <Link href={blog.slug.current} key={blog._id}>
+              <div key={blog._id}>
+              <Link href={blog.slug.current}>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
                 {blog.image?.asset?._ref ? (
                   <Image
@@ -87,6 +88,7 @@ export default async function Home() {
                 <p>{blog.description.slice(0, 300)}</p>
               </div>
               </Link>
+                </div>
             );
           })}
           </div>
