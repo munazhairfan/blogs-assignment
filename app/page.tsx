@@ -52,7 +52,7 @@ export default async function Home() {
             Transform Your Life with Fitness
           </h1>
           <p className="text-lg mb-6">
-            Get the body and health you've always dreamed of with our tips.
+            Get the body and health you&apos;ve always dreamed of with our tips.
           </p>
           <a
             href="#programs"
@@ -71,7 +71,7 @@ export default async function Home() {
           {blogs.map((blog) => {
             return (
               <Link href={blog.slug.current}>
-              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" key={blog._id}>
                 {blog.image?.asset?._ref ? (
                   <Image
                     src={urlFor(blog.image.asset).width(500).height(280).url()}
@@ -101,7 +101,7 @@ export default async function Home() {
           {
             blogs2.map((blogs)=>{
               return(
-                <div className="w-64 bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div className="w-64 bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" key={blogs._id}>
               <Image
                 src={urlFor(blogs.image.asset).width(720).height(600).url()}
                 alt={blogs.title}
@@ -134,22 +134,22 @@ export default async function Home() {
           <div className="flex justify-center space-x-10">
             <div className="bg-white p-8 rounded-lg shadow-lg w-80">
               <p className="italic mb-4">
-                "This program changed my life! I lost 20 lbs and feel healthier
-                than ever."
+                &quot;This program changed my life! I lost 20 lbs and feel healthier
+                than ever.&quot;
               </p>
               <h4 className="font-semibold">John Doe</h4>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg w-80">
               <p className="italic mb-4">
-                "The personalized workout plan was exactly what I needed to stay
-                motivated."
+                &quot;The personalized workout plan was exactly what I needed to stay
+                motivated.&quot;
               </p>
               <h4 className="font-semibold">Jane Smith</h4>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg w-80">
               <p className="italic mb-4">
-                "Amazing nutrition tips and meal plans. I feel more energized
-                every day!"
+                &quot;Amazing nutrition tips and meal plans. I feel more energized
+                every day!&quot;
               </p>
               <h4 className="font-semibold">Michael Johnson</h4>
             </div>

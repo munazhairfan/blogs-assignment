@@ -11,8 +11,8 @@ export default function About() {
           </h2>
           <p className="text-lg text-gray-600 mb-12">
             Our mission is to help you live your healthiest, most fit life
-            possible. Whether you're just starting your fitness journey or
-            you're a seasoned athlete, we are here to guide you every step of
+            possible. Whether you&apos;re just starting your fitness journey or
+            you&apos;re a seasoned athlete, we are here to guide you every step of
             the way.
           </p>
           <div className="flex justify-center mb-8">
@@ -24,7 +24,7 @@ export default function About() {
                 At our core, we believe that health and fitness are essential
                 for a balanced life. We aim to inspire and equip you with the
                 tools, knowledge, and motivation you need to achieve your fitness
-                goals. Whether it's through personalized workout programs,
+                goals. Whether it&apos;s through personalized workout programs,
                 nutrition plans, or daily motivation, we want to help you unlock
                 your full potential.
               </p>
@@ -36,7 +36,7 @@ export default function About() {
                 fitness and wellness solutions.
               </p>
               <p className="text-gray-700">
-                Join us today, and let's embark on this fitness journey together.
+                Join us today, and let&apos;s embark on this fitness journey together.
               </p>
             </div>
           </div>
