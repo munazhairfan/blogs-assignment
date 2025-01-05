@@ -1,101 +1,161 @@
+import React from "react";
+import { createClient } from "@sanity/client";
 import Image from "next/image";
+import imageUrlBuilder from "@sanity/image-url";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Link from "next/link";
 
-export default function Home() {
+type Post = {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: string;
+  slug: {
+    current: string;
+  };
+  description: string;
+  content: string;
+  image: {
+    asset: {
+      _ref: string;
+      url: string;
+    };
+  };
+};
+
+export default async function Home() {
+  const client = createClient({
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+    apiVersion: "2023-01-05",
+    useCdn: false,
+  });
+  const query = '*[_type == "blog" && defined(slug.current)][5...8]';
+  const query2 = '*[_type == "blog" && defined(slug.current)][11...15]';
+  const blogs: Post[] = await client.fetch(query);
+  const blogs2: Post[] = await client.fetch(query2);
+
+  const builder = imageUrlBuilder(client);
+
+  const urlFor = (source: SanityImageSource) => builder.image(source);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+    <div>
+      {/* Hero Section */}
+      <section
+        className="relative w-full h-screen bg-cover bg-center"
+        style={{ backgroundImage: 'url("/path-to-your-image.jpg")' }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
+          <h1 className="text-5xl font-bold leading-tight mb-4">
+            Transform Your Life with Fitness
+          </h1>
+          <p className="text-lg mb-6">
+            Get the body and health you've always dreamed of with our tips.
+          </p>
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#programs"
+            className="bg-cyan-950 text-white py-2 px-6 rounded-lg text-lg transition hover:bg-orange-500"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            Start Your Journey
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50" id="features">
+        <div className="max-w-7xl text-center mx-auto">
+          <h2 className="text-4xl font-semibold mb-10">Why Choose Us?</h2>
+          <div className="grid md:grid-cols-3 grid-cols-1 gap-10">
+          {blogs.map((blog) => {
+            return (
+              <Link href={blog.slug.current}>
+              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                {blog.image?.asset?._ref ? (
+                  <Image
+                    src={urlFor(blog.image.asset).width(500).height(280).url()}
+                    alt={blog.title}
+                    height={480}
+                    width={500}
+                    className="object-cover"
+                  />
+                ) : (
+                  <div>No image available</div>
+                )}
+                <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
+                <p>{blog.description.slice(0, 300)}</p>
+              </div>
+              </Link>
+            );
+          })}
+          </div>
+        </div>
+      </section>
+
+      {/* Popular Programs Section */}
+      <section className="py-20" id="programs">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl font-semibold mb-10">Popular Posts</h2>
+           <div className="flex overflow-x-auto space-x-10 justify-around">
+          {
+            blogs2.map((blogs)=>{
+              return(
+                <div className="w-64 bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+              <Image
+                src={urlFor(blogs.image.asset).width(720).height(600).url()}
+                alt={blogs.title}
+                width={250}
+                height={150}
+                className="mb-4 rounded-md"
+              />
+              <h3 className="text-xl font-semibold mb-2">
+                {blogs.title}
+              </h3>
+              <p>{blogs.description.slice(0,250)}....</p>
+              <Link
+                href={blogs.slug.current}
+                className="text-cyan-700 font-semibold"
+              >
+                Learn More
+              </Link>
+            </div>
+              )
+            })
+          }
+          </div> 
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gray-100">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl font-semibold mb-10">What Our Clients Say</h2>
+          <div className="flex justify-center space-x-10">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-80">
+              <p className="italic mb-4">
+                "This program changed my life! I lost 20 lbs and feel healthier
+                than ever."
+              </p>
+              <h4 className="font-semibold">John Doe</h4>
+            </div>
+            <div className="bg-white p-8 rounded-lg shadow-lg w-80">
+              <p className="italic mb-4">
+                "The personalized workout plan was exactly what I needed to stay
+                motivated."
+              </p>
+              <h4 className="font-semibold">Jane Smith</h4>
+            </div>
+            <div className="bg-white p-8 rounded-lg shadow-lg w-80">
+              <p className="italic mb-4">
+                "Amazing nutrition tips and meal plans. I feel more energized
+                every day!"
+              </p>
+              <h4 className="font-semibold">Michael Johnson</h4>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
